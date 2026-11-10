@@ -56,17 +56,15 @@
   nav.links a:hover{color:#fff}
   .badge-display{
     font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--cream);border:1px solid rgba(255,217,160,.45);border-radius:999px;padding:5px 12px 5px calc(12px + .12em);white-space:nowrap;
+    color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 12px 5px calc(12px + .12em);white-space:nowrap;
   }
   @media (max-width:1020px){
     nav.links{gap:14px;font-size:.86rem}
     .badge-display{font-size:.66rem}
   }
   @media (max-width:900px){
-    .bar-in{grid-template-columns:1fr auto;grid-template-areas:"brand badge" "nav nav";row-gap:6px}
-    .bar-in .brand{grid-area:brand}
-    .bar-in .badge-display{grid-area:badge}
-    .bar-in nav.links{grid-area:nav;justify-self:center;padding-bottom:2px}
+    .bar-in{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 0}
+    #collection,#series,#about{scroll-margin-top:158px}
   }
   @media (max-width:480px){
     .brand{font-size:1.3rem}
