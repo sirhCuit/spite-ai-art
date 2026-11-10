@@ -299,39 +299,83 @@
 </script>
 
 <script>
-  /* ---------- wispy cold flames around the hero title ---------- */
+  /* ---------- dry-ice vapor sublimating off the SPITE letters ---------- */
   (function () {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     function makeSprite(r, g, b) {
       var s = document.createElement('canvas');
-      s.width = 192; s.height = 256;
+      s.width = s.height = 192;
       var c = s.getContext('2d');
-      var blobs = [[96, 205, 88], [78, 150, 66], [118, 138, 60], [96, 92, 52], [86, 178, 46], [108, 60, 36]];
+      var blobs = [[96, 100, 74], [66, 84, 52], [128, 84, 54], [88, 128, 46], [110, 122, 42]];
       blobs.forEach(function (bl) {
         var grad = c.createRadialGradient(bl[0], bl[1], 0, bl[0], bl[1], bl[2]);
-        grad.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',0.34)');
-        grad.addColorStop(0.5, 'rgba(' + r + ',' + g + ',' + b + ',0.15)');
+        grad.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',0.30)');
+        grad.addColorStop(0.5, 'rgba(' + r + ',' + g + ',' + b + ',0.13)');
         grad.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
         c.fillStyle = grad;
-        c.fillRect(0, 0, 192, 256);
+        c.fillRect(0, 0, 192, 192);
       });
       return s;
     }
-    var SPRITES = [makeSprite(248, 252, 255), makeSprite(240, 250, 255), makeSprite(178, 232, 255), makeSprite(206, 182, 255)];
+    var SPRITES = [makeSprite(248, 252, 255), makeSprite(238, 248, 255), makeSprite(186, 234, 255), makeSprite(214, 192, 255)];
 
-    function FlameLayer(canvas, count, maxAlpha, front) {
+    /* Sample the actual glyph pixels of the h1 so vapor is born ON the letters. */
+    var glyphPoints = [];
+    var glyphBox = null;
+    function sampleGlyphs() {
+      var h1 = document.querySelector('.hero h1');
+      var back = document.getElementById('fogBack');
+      if (!h1 || !back) return;
+      var cr = back.getBoundingClientRect();
+      var hr = h1.getBoundingClientRect();
+      if (cr.width < 10 || hr.width < 10) return;
+      var fs = parseFloat(window.getComputedStyle(h1).fontSize);
+      var off = document.createElement('canvas');
+      off.width = Math.round(cr.width);
+      off.height = Math.round(cr.height);
+      var c = off.getContext('2d', { willReadFrequently: true });
+      c.font = fs + 'px "Kaushan Script", cursive';
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      c.fillStyle = '#fff';
+      var cx = (hr.left - cr.left) + hr.width / 2;
+      var cy = (hr.top - cr.top) + hr.height / 2;
+      c.fillText(h1.textContent.trim(), cx, cy);
+      var data;
+      try {
+        data = c.getImageData(0, 0, off.width, off.height).data;
+      } catch (e) { return; }
+      var pts = [];
+      var minX = 1e9, maxX = -1, minY = 1e9, maxY = -1;
+      for (var y = 0; y < off.height; y += 3) {
+        for (var x = 0; x < off.width; x += 3) {
+          if (data[(y * off.width + x) * 4 + 3] > 110) {
+            pts.push([x, y]);
+            if (x < minX) minX = x; if (x > maxX) maxX = x;
+            if (y < minY) minY = y; if (y > maxY) maxY = y;
+          }
+        }
+      }
+      if (pts.length > 200) {
+        glyphPoints = pts;
+        glyphBox = { minX: minX, maxX: maxX, minY: minY, maxY: maxY, cx: cx };
+      }
+    }
+
+    function VaporLayer(canvas, count, maxAlpha, sizeMul, front) {
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
       this.count = count;
       this.maxAlpha = maxAlpha;
+      this.sizeMul = sizeMul;
       this.front = front;
       this.parts = [];
       this.last = 0;
       this.resize();
       for (var i = 0; i < count; i++) this.parts.push(this.spawn(true));
     }
-    FlameLayer.prototype.resize = function () {
+    VaporLayer.prototype.resize = function () {
       var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       var r = this.canvas.getBoundingClientRect();
       this.w = r.width; this.h = r.height;
@@ -339,57 +383,78 @@
       this.canvas.height = Math.round(r.height * dpr);
       this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
-    FlameLayer.prototype.spawn = function (anywhere) {
-      var cx = this.w / 2;
+    VaporLayer.prototype.spawn = function (anywhere) {
+      var x, y;
+      if (glyphPoints.length) {
+        var pt = glyphPoints[(Math.random() * glyphPoints.length) | 0];
+        x = pt[0] + (Math.random() - 0.5) * 5;
+        y = pt[1] + (Math.random() - 0.5) * 5;
+      } else {
+        x = this.w / 2 + (Math.random() - 0.5) * this.w * 0.55;
+        y = this.h * 0.42 + (Math.random() - 0.5) * this.h * 0.25;
+      }
+      var cx = glyphBox ? glyphBox.cx : this.w / 2;
       return {
-        x: cx + (Math.random() - 0.5) * this.w * (this.front ? 0.46 : 0.58),
-        y: this.h * 0.86 + (Math.random() - 0.5) * this.h * 0.08,
-        w: 26 + Math.random() * 40,
-        hgt: 90 + Math.random() * 130,
-        rise: 26 + Math.random() * 30,
-        swayPhase: Math.random() * Math.PI * 2,
-        swaySpeed: 0.7 + Math.random() * 0.9,
-        flick: 6 + Math.random() * 8,
-        flickPhase: Math.random() * Math.PI * 2,
-        rot: (Math.random() - 0.5) * 0.24,
-        vr: (Math.random() - 0.5) * 0.05,
-        age: anywhere ? Math.random() * 9 : 0,
-        life: 6.5 + Math.random() * 4.5,
+        x: x, y: y,
+        vx: (x - cx) * 0.012 + (Math.random() - 0.5) * 3,
+        vy: 2 + Math.random() * 4,
+        r: (13 + Math.random() * 17) * this.sizeMul,
+        grow: 7 + Math.random() * 8,
+        seed: Math.random() * Math.PI * 2,
+        curlSpeed: 0.5 + Math.random() * 0.8,
+        rot: Math.random() * Math.PI * 2,
+        vr: (Math.random() - 0.5) * 0.10,
+        age: anywhere ? Math.random() * 7 : 0,
+        life: 4.5 + Math.random() * 3.5,
         sprite: SPRITES[(Math.random() * SPRITES.length) | 0]
       };
     };
-    FlameLayer.prototype.step = function (dt, t) {
+    VaporLayer.prototype.step = function (dt, t) {
       var ctx = this.ctx;
       ctx.clearRect(0, 0, this.w, this.h);
       ctx.globalCompositeOperation = 'lighter';
+      var baseY = glyphBox ? glyphBox.maxY : this.h * 0.55;
       for (var i = 0; i < this.parts.length; i++) {
         var p = this.parts[i];
         p.age += dt;
         if (p.age >= p.life) { this.parts[i] = this.spawn(false); continue; }
         var k = p.age / p.life;
-        var env = Math.pow(Math.sin(Math.min(k, 1) * Math.PI), 0.7);
-        var flicker = 0.82 + 0.18 * Math.sin(t * p.flick + p.flickPhase);
-        p.y -= p.rise * dt * (0.7 + k * 0.8);
-        p.x += Math.sin(t * p.swaySpeed + p.swayPhase) * (6 + k * 26) * dt;
+        /* dry ice: sinks faster as it leaves the letter, spills sideways once it
+           drops past the letterforms, curling the whole way down */
+        p.vy += 9 * dt * (0.35 + k);
+        p.vx += Math.sin(t * p.curlSpeed + p.seed) * 11 * dt * (0.4 + k);
+        if (p.y > baseY) p.vx += (p.x - (glyphBox ? glyphBox.cx : this.w / 2)) * 0.02 * dt * 60 * 0.016;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.r += p.grow * dt * (0.5 + k);
         p.rot += p.vr * dt;
-        var wNow = p.w * (0.55 + k * 0.75) * (1 - k * k * 0.35);
-        var hNow = p.hgt * (0.5 + k * 0.9);
+        /* strongest right at the surface, thinning to nothing at the tips */
+        var rampIn = Math.min(p.age / 0.35, 1);
+        var env = rampIn * Math.pow(1 - k, 1.25);
         ctx.save();
         ctx.translate(p.x, p.y);
-        ctx.rotate(p.rot + Math.sin(t * p.swaySpeed + p.swayPhase) * 0.06 * (0.4 + k));
-        ctx.globalAlpha = Math.min(1, env * flicker * this.maxAlpha);
-        ctx.drawImage(p.sprite, -wNow / 2, -hNow, wNow, hNow);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = Math.min(1, env * this.maxAlpha);
+        ctx.drawImage(p.sprite, -p.r, -p.r, p.r * 2, p.r * 2);
         ctx.restore();
       }
       ctx.globalCompositeOperation = 'source-over';
     };
 
     var layers = [];
-    var back = document.getElementById('fogBack');
-    var front = document.getElementById('fogFront');
-    var small = window.innerWidth < 640;
-    if (back) layers.push(new FlameLayer(back, small ? 20 : 30, 0.95, false));
-    if (front) layers.push(new FlameLayer(front, small ? 7 : 10, 0.6, true));
+    function build() {
+      sampleGlyphs();
+      layers = [];
+      var back = document.getElementById('fogBack');
+      var front = document.getElementById('fogFront');
+      var small = window.innerWidth < 640;
+      if (back) layers.push(new VaporLayer(back, small ? 26 : 38, 0.95, 1.25, false));
+      if (front) layers.push(new VaporLayer(front, small ? 14 : 20, 0.8, 0.8, true));
+    }
+    build();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { build(); });
+    }
 
     var visible = true;
     if ('IntersectionObserver' in window) {
@@ -401,6 +466,7 @@
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
+        sampleGlyphs();
         layers.forEach(function (l) { l.resize(); });
       }, 180);
     });
