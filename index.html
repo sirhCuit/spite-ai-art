@@ -105,6 +105,10 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px 9px}
   .meta span b{color:var(--text);font-weight:600}
+  .nft-soon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:9px}
+  .nft-soon::before{content:"";width:7px;height:7px;border-radius:50%;flex:none}
+  .core .nft-soon::before{background:var(--cyan);box-shadow:0 0 9px var(--cyan)}
+  .pastel .nft-soon::before{background:var(--pink);box-shadow:0 0 9px var(--pink)}
 
   /* ---------- series panels ---------- */
   .panels{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
@@ -168,6 +172,7 @@
           <span><b>Shown</b> Watermarked 2080</span>
           <span><b>Status</b> Not for sale</span>
         </div>
+        <div class="nft-soon">NFT editions &mdash; coming soon</div>
       </div>
     </article>
 
@@ -186,6 +191,7 @@
           <span><b>Shown</b> Watermarked 2080</span>
           <span><b>Status</b> Not for sale</span>
         </div>
+        <div class="nft-soon">NFT editions &mdash; coming soon</div>
       </div>
     </article>
   </section>
