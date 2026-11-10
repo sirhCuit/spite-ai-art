@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
     --bg:#07080d;
@@ -44,7 +45,10 @@
     background:rgba(7,8,13,.78);
     border-bottom:1px solid var(--line);
   }
-  .bar-in{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .bar-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 0}
+  .bar-in .brand{justify-self:start}
+  .bar-in nav.links{justify-self:center}
+  .bar-in .badge-display{justify-self:end}
   .brand{font-family:'Kaushan Script',cursive;font-size:1.55rem;letter-spacing:.14em;color:#fff;text-decoration:none}
   .brand span{color:var(--cyan)}
   nav.links{display:flex;gap:22px;font-size:.92rem}
@@ -52,23 +56,39 @@
   nav.links a:hover{color:#fff}
   .badge-display{
     font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--cream);border:1px solid rgba(255,217,160,.45);border-radius:999px;padding:5px 12px;white-space:nowrap;
+    color:var(--cream);border:1px solid rgba(255,217,160,.45);border-radius:999px;padding:5px 12px 5px calc(12px + .12em);white-space:nowrap;
   }
   @media (max-width:640px){ nav.links{display:none} }
+  @media (max-width:480px){
+    .brand{font-size:1.3rem}
+    .badge-display{font-size:.62rem;padding:4px 9px 4px calc(9px + .12em)}
+    .bar-in{padding:11px 0}
+  }
 
   /* ---------- hero ---------- */
-  .hero{text-align:center;padding:76px 0 30px}
-  .hero .kicker{letter-spacing:.34em;text-transform:uppercase;font-size:.74rem;color:var(--muted)}
+  .hero{position:relative;text-align:center;padding:76px 0 30px}
+  .hero > *:not(canvas){position:relative;z-index:1}
+  canvas.fog{position:absolute;left:50%;transform:translateX(-50%);top:16px;width:min(920px,100vw);height:330px;pointer-events:none}
+  canvas.fog.back{z-index:0}
+  canvas.fog.front{z-index:2;opacity:.55}
+  @media (max-width:480px){ canvas.fog{height:250px;top:6px} }
+  .hero .kicker{letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;font-size:.74rem;color:var(--muted)}
   .hero h1{
     font-family:'Kaushan Script',cursive;
     font-size:clamp(4.2rem,14vw,8.5rem);
     line-height:1.05;color:#fff;
     text-shadow:0 0 34px rgba(87,230,255,.35),0 0 90px rgba(160,107,255,.30);
     margin:10px 0 6px;
+    position:relative;left:-0.13em; /* optical centring: Kaushan's slanted glyphs put the visible ink ~0.13em right of the advance-width centre (measured +17.5px at 136px desktop, +8.6px at 67px mobile) */
   }
   .hero p.lede{max-width:640px;margin:0 auto;color:var(--muted);font-size:1.06rem}
   .hero p.lede strong{color:var(--text)}
-  .hero .rule{width:120px;height:2px;margin:28px auto 0;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));border-radius:2px}
+  .hero .rule{width:120px;height:2px;margin:28px auto 0;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));background-size:200% 100%;border-radius:2px;animation:ruleflow 7s linear infinite}
+  @keyframes ruleflow{from{background-position:0% 0}to{background-position:200% 0}}
+  @media (max-width:480px){
+    .hero{padding:52px 0 22px}
+    .hero p.lede{font-size:1rem}
+  }
 
   /* ---------- storefront grid ---------- */
   .shelf-label{
@@ -87,13 +107,19 @@
   .card:hover{transform:translateY(-5px)}
   .card.core:hover{border-color:rgba(87,230,255,.55);box-shadow:0 18px 50px -18px rgba(87,230,255,.35)}
   .card.pastel:hover{border-color:rgba(255,217,160,.55);box-shadow:0 18px 50px -18px rgba(255,158,207,.35)}
-  .card .frame{position:relative;background:#000}
-  .card img{display:block;width:100%;height:auto}
+  .card .frame{position:relative;background:#000;overflow:hidden}
+  .card img{display:block;width:100%;height:auto;transition:transform 1.2s cubic-bezier(.19,1,.22,1)}
+  .card:hover img{transform:scale(1.045)}
   .tag{
     position:absolute;top:14px;left:14px;
     font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-    background:rgba(5,6,10,.72);border:1px solid var(--line);border-radius:999px;padding:5px 11px;color:#fff;
+    background:rgba(5,6,10,.72);border:1px solid var(--line);border-radius:999px;padding:5px 11px 5px calc(11px + .14em);color:#fff;
     backdrop-filter:blur(6px);
+  }
+  @media (max-width:480px){
+    .card .body{padding:18px 18px 20px}
+    .panel{padding:20px}
+    .about{padding:22px}
   }
   .tag.status{left:auto;right:14px;color:var(--cream);border-color:rgba(255,217,160,.5)}
   .card .body{padding:22px 22px 24px}
@@ -106,7 +132,8 @@
   .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px 9px}
   .meta span b{color:var(--text);font-weight:600}
   .nft-soon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:9px}
-  .nft-soon::before{content:"";width:7px;height:7px;border-radius:50%;flex:none}
+  .nft-soon::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;animation:dotpulse 2.2s ease-in-out infinite}
+  @keyframes dotpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.45);opacity:.55}}
   .core .nft-soon::before{background:var(--cyan);box-shadow:0 0 9px var(--cyan)}
   .pastel .nft-soon::before{background:var(--pink);box-shadow:0 0 9px var(--pink)}
 
@@ -128,6 +155,25 @@
   footer a{color:var(--muted)}
   footer a:hover{color:#fff}
   .rights{margin-top:14px;font-size:.84rem;color:#6d7290}
+
+  /* ---------- anchors under the sticky bar ---------- */
+  #collection,#series,#about{scroll-margin-top:92px}
+
+  /* ---------- entrance + scroll animations ---------- */
+  @keyframes riseIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes heroGlow{from{text-shadow:0 0 12px rgba(87,230,255,.12),0 0 30px rgba(160,107,255,.10)}to{text-shadow:0 0 34px rgba(87,230,255,.35),0 0 90px rgba(160,107,255,.30)}}
+  .hero .kicker{animation:riseIn .8s cubic-bezier(.19,1,.22,1) both}
+  .hero h1{animation:riseIn .9s cubic-bezier(.19,1,.22,1) .08s both,heroGlow 1.6s ease-out .08s both}
+  .hero p.lede{animation:riseIn .9s cubic-bezier(.19,1,.22,1) .18s both}
+  .hero .rule{animation:riseIn .9s cubic-bezier(.19,1,.22,1) .26s both,ruleflow 7s linear infinite}
+  .js .reveal{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.19,1,.22,1),transform .85s cubic-bezier(.19,1,.22,1);transition-delay:var(--d,0s)}
+  .js .reveal.in{opacity:1;transform:translateY(0)}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    .js .reveal{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
@@ -148,16 +194,18 @@
 <main class="wrap">
 
   <section class="hero">
+    <canvas class="fog back" id="fogBack" aria-hidden="true"></canvas>
     <div class="kicker">An Original AI Art Collection</div>
     <h1>SPITE</h1>
     <p class="lede">Futuristic mandalas by <strong>Sirhc / Circuit Research</strong>. Two series, two ends of the spectrum: circuitry and nebula, machine and bloom. Say hello to the SPITE collection.</p>
     <div class="rule"></div>
+    <canvas class="fog front" id="fogFront" aria-hidden="true"></canvas>
   </section>
 
-  <div class="shelf-label" id="collection">The Collection &mdash; Series #001</div>
+  <div class="shelf-label reveal" id="collection">The Collection &mdash; Series #001</div>
 
   <section class="grid">
-    <article class="card core">
+    <article class="card core reveal">
       <div class="frame">
         <img src="core-series-001-2080-watermarked.jpg" alt="Core Series #001: a perfectly circular concentric disc of glowing cyan and violet motherboard circuitry on dark metal, with faint smoke wisps around the rim">
         <span class="tag">Core Series</span>
@@ -176,7 +224,7 @@
       </div>
     </article>
 
-    <article class="card pastel">
+    <article class="card pastel reveal" style="--d:.12s">
       <div class="frame">
         <img src="pastel-series-001-2080-watermarked.jpg" alt="Pastel Series #001: a smooth pastel nebula-bloom mandala in peach, teal and pink with wispy smoke and no hard linework">
         <span class="tag">Pastel Series</span>
@@ -196,20 +244,20 @@
     </article>
   </section>
 
-  <div class="shelf-label" id="series">The Two Series</div>
+  <div class="shelf-label reveal" id="series">The Two Series</div>
 
   <section class="panels">
-    <div class="panel core">
+    <div class="panel core reveal">
       <h3>Core Series</h3>
       <p>Motherboard, circuitry, custom-PC-lighting energy. Neon on dark metal, radial symmetry, engineered precision. Labels in all-caps Kaushan Script with a hollow embossed outline in icy silver-cyan, typeset deterministically, never AI-redrawn.</p>
     </div>
-    <div class="panel pastel">
+    <div class="panel pastel reveal" style="--d:.12s">
       <h3>Pastel Series</h3>
       <p>Lighter tones, candy textures, whimsy. Nebula blooms and smoke instead of circuits, the collection&rsquo;s soft counterweight to Core&rsquo;s machinery. Labels in the same hand, in warm cream.</p>
     </div>
   </section>
 
-  <section class="about" id="about">
+  <section class="about reveal" id="about">
     <h3>About this gallery</h3>
     <p>SPITE was named in November 2026, born from the anti-AI &ldquo;theft&rdquo; debates, and launched publicly on Threads as <a href="https://www.threads.com/@circuit_research">@circuit_research</a>. Copyright infringement, plagiarism, and theft are three distinct things; this collection is the standing argument that a human aimed the machine and the work is his.</p>
     <p>Only watermarked posting versions live here. The clean 3840 &times; 3840 masters stay private, and any future editions will be announced by the artist, nobody else. The full index lives in <a href="https://github.com/sirhCuit/spite-ai-art/blob/main/COLLECTION.md">COLLECTION.md</a>, and the edition research in <a href="https://github.com/sirhCuit/spite-ai-art/blob/main/NFT-ROUTES.md">NFT-ROUTES.md</a>.</p>
@@ -230,6 +278,144 @@
     <p class="rights">Copyright 2026 Sirhc. All rights reserved. No commercial use, no re-upload, and no minting by anyone other than the artist.</p>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+<script>
+  /* ---------- dry-ice fog around the hero title ---------- */
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function makeSprite(r, g, b) {
+      var s = document.createElement('canvas');
+      s.width = s.height = 256;
+      var c = s.getContext('2d');
+      var blobs = [[128, 138, 105], [88, 118, 62], [172, 112, 66], [110, 158, 52], [152, 160, 48]];
+      blobs.forEach(function (bl) {
+        var grad = c.createRadialGradient(bl[0], bl[1], 0, bl[0], bl[1], bl[2]);
+        grad.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',0.16)');
+        grad.addColorStop(0.55, 'rgba(' + r + ',' + g + ',' + b + ',0.07)');
+        grad.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
+        c.fillStyle = grad;
+        c.fillRect(0, 0, 256, 256);
+      });
+      return s;
+    }
+    var SPRITES = [makeSprite(235, 244, 255), makeSprite(168, 226, 255), makeSprite(206, 178, 255)];
+
+    function FogLayer(canvas, count, maxAlpha, front) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d');
+      this.count = count;
+      this.maxAlpha = maxAlpha;
+      this.front = front;
+      this.parts = [];
+      this.running = true;
+      this.last = 0;
+      this.resize();
+      for (var i = 0; i < count; i++) this.spawn(true);
+    }
+    FogLayer.prototype.resize = function () {
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var r = this.canvas.getBoundingClientRect();
+      this.w = r.width; this.h = r.height;
+      this.canvas.width = Math.round(r.width * dpr);
+      this.canvas.height = Math.round(r.height * dpr);
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    FogLayer.prototype.spawn = function (anywhere) {
+      var cx = this.w / 2;
+      var spread = this.front ? 0.52 : 0.62;
+      return {
+        x: cx + (Math.random() - 0.5) * this.w * spread,
+        y: this.h * (this.front ? 0.55 : 0.48) + (Math.random() - 0.5) * this.h * 0.30,
+        r: 42 + Math.random() * 60,
+        grow: 5 + Math.random() * 9,
+        vx: (Math.random() < 0.5 ? -1 : 1) * (3 + Math.random() * 8),
+        vy: 1.5 + Math.random() * 3.5,
+        sway: Math.random() * Math.PI * 2,
+        swaySpeed: 0.10 + Math.random() * 0.22,
+        rot: Math.random() * Math.PI * 2,
+        vr: (Math.random() - 0.5) * 0.03,
+        age: anywhere ? Math.random() * 14 : 0,
+        life: 11 + Math.random() * 8,
+        sprite: SPRITES[(Math.random() * SPRITES.length) | 0]
+      };
+    };
+    FogLayer.prototype.step = function (dt, t) {
+      var ctx = this.ctx;
+      ctx.clearRect(0, 0, this.w, this.h);
+      for (var i = 0; i < this.parts.length; i++) {
+        var p = this.parts[i];
+        if (!p) { p = this.parts[i] = this.spawn(false); }
+        p.age += dt;
+        if (p.age >= p.life) { this.parts[i] = this.spawn(false); continue; }
+        var k = p.age / p.life;
+        var env = Math.sin(Math.min(k, 1) * Math.PI);
+        p.x += (p.vx + Math.sin(t * p.swaySpeed + p.sway) * 5) * dt;
+        p.y += p.vy * dt * (1 - k * 0.7);
+        p.r += p.grow * dt;
+        p.rot += p.vr * dt;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = env * this.maxAlpha;
+        ctx.drawImage(p.sprite, -p.r, -p.r, p.r * 2, p.r * 2);
+        ctx.restore();
+      }
+    };
+
+    var layers = [];
+    var back = document.getElementById('fogBack');
+    var front = document.getElementById('fogFront');
+    var small = window.innerWidth < 640;
+    if (back) layers.push(new FogLayer(back, small ? 15 : 24, 0.85, false));
+    if (front) layers.push(new FogLayer(front, small ? 5 : 8, 0.5, true));
+
+    var visible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+      }).observe(document.querySelector('.hero'));
+    }
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        layers.forEach(function (l) { l.resize(); });
+      }, 180);
+    });
+
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      if (!visible || document.hidden) return;
+      var t = ts / 1000;
+      layers.forEach(function (l) {
+        var dt = Math.min(t - (l.last || t), 0.05);
+        l.last = t;
+        l.step(Math.max(dt, 0.001), t);
+      });
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>
 
 </body>
 </html>
