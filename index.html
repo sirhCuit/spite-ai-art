@@ -45,6 +45,7 @@
     background:rgba(7,8,13,.78);
     border-bottom:1px solid var(--line);
   }
+  header.bar .wrap{padding-left:34px;padding-right:34px}
   .bar-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 0}
   .bar-in .brand{justify-self:start}
   .bar-in nav.links{justify-self:center}
@@ -52,8 +53,15 @@
   .brand{font-family:'Kaushan Script',cursive;font-size:1.55rem;letter-spacing:.14em;color:#fff;text-decoration:none}
   .brand span{color:var(--cyan)}
   nav.links{display:flex;gap:22px;font-size:.92rem}
-  nav.links a{color:var(--muted);text-decoration:none}
-  nav.links a:hover{color:#fff}
+  nav.links a{
+    text-decoration:none;font-weight:600;
+    background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));
+    background-size:200% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:ruleflow 7s linear infinite;
+  }
+  nav.links a:hover{filter:brightness(1.35)}
   .badge-display{
     font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
     color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 12px 5px calc(12px + .12em);white-space:nowrap;
