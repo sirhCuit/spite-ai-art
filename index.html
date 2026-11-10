@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPITE — An AI Art Collection by Sirhc / Circuit Research</title>
+<meta name="description" content="SPITE: an original AI art collection of futuristic mandalas. The Core Series and the Pastel Series. On display, not for sale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07080d;
+    --bg2:#0b0d16;
+    --card:#10121f;
+    --line:#23263c;
+    --text:#e9eaf4;
+    --muted:#9aa0b8;
+    --cyan:#57e6ff;
+    --violet:#a06bff;
+    --cream:#ffd9a0;
+    --pink:#ff9ecf;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(900px 500px at 15% -10%, rgba(87,230,255,.10), transparent 60%),
+      radial-gradient(900px 500px at 85% -10%, rgba(160,107,255,.12), transparent 60%),
+      radial-gradient(700px 500px at 50% 115%, rgba(255,158,207,.06), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.6;
+    min-height:100vh;
+  }
+  a{color:var(--cyan)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* ---------- top bar ---------- */
+  header.bar{
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(10px);
+    background:rgba(7,8,13,.78);
+    border-bottom:1px solid var(--line);
+  }
+  .bar-in{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{font-family:'Kaushan Script',cursive;font-size:1.55rem;letter-spacing:.14em;color:#fff;text-decoration:none}
+  .brand span{color:var(--cyan)}
+  nav.links{display:flex;gap:22px;font-size:.92rem}
+  nav.links a{color:var(--muted);text-decoration:none}
+  nav.links a:hover{color:#fff}
+  .badge-display{
+    font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--cream);border:1px solid rgba(255,217,160,.45);border-radius:999px;padding:5px 12px;white-space:nowrap;
+  }
+  @media (max-width:640px){ nav.links{display:none} }
+
+  /* ---------- hero ---------- */
+  .hero{text-align:center;padding:76px 0 30px}
+  .hero .kicker{letter-spacing:.34em;text-transform:uppercase;font-size:.74rem;color:var(--muted)}
+  .hero h1{
+    font-family:'Kaushan Script',cursive;
+    font-size:clamp(4.2rem,14vw,8.5rem);
+    line-height:1.05;color:#fff;
+    text-shadow:0 0 34px rgba(87,230,255,.35),0 0 90px rgba(160,107,255,.30);
+    margin:10px 0 6px;
+  }
+  .hero p.lede{max-width:640px;margin:0 auto;color:var(--muted);font-size:1.06rem}
+  .hero p.lede strong{color:var(--text)}
+  .hero .rule{width:120px;height:2px;margin:28px auto 0;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));border-radius:2px}
+
+  /* ---------- storefront grid ---------- */
+  .shelf-label{
+    display:flex;align-items:center;gap:14px;margin:54px 0 20px;
+    font-size:.78rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
+  }
+  .shelf-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media (max-width:760px){ .grid{grid-template-columns:1fr} }
+
+  .card{
+    background:linear-gradient(180deg,var(--card),var(--bg2));
+    border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .card:hover{transform:translateY(-5px)}
+  .card.core:hover{border-color:rgba(87,230,255,.55);box-shadow:0 18px 50px -18px rgba(87,230,255,.35)}
+  .card.pastel:hover{border-color:rgba(255,217,160,.55);box-shadow:0 18px 50px -18px rgba(255,158,207,.35)}
+  .card .frame{position:relative;background:#000}
+  .card img{display:block;width:100%;height:auto}
+  .tag{
+    position:absolute;top:14px;left:14px;
+    font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    background:rgba(5,6,10,.72);border:1px solid var(--line);border-radius:999px;padding:5px 11px;color:#fff;
+    backdrop-filter:blur(6px);
+  }
+  .tag.status{left:auto;right:14px;color:var(--cream);border-color:rgba(255,217,160,.5)}
+  .card .body{padding:22px 22px 24px}
+  .series{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+  .core .series{color:var(--cyan)}
+  .pastel .series{color:var(--cream)}
+  .card h2{font-size:1.5rem;font-weight:800;margin:6px 0 8px;color:#fff}
+  .card p{color:var(--muted);font-size:.97rem}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px 9px}
+  .meta span b{color:var(--text);font-weight:600}
+
+  /* ---------- series panels ---------- */
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+  @media (max-width:760px){ .panels{grid-template-columns:1fr} }
+  .panel{border:1px solid var(--line);border-radius:18px;padding:26px;background:rgba(16,18,31,.55)}
+  .panel h3{font-family:'Kaushan Script',cursive;font-size:1.7rem;color:#fff;margin-bottom:8px}
+  .panel.core h3{text-shadow:0 0 18px rgba(87,230,255,.45)}
+  .panel.pastel h3{text-shadow:0 0 18px rgba(255,158,207,.45)}
+  .panel p{color:var(--muted);font-size:.97rem}
+
+  /* ---------- about / footer ---------- */
+  .about{margin:60px 0 0;border:1px solid var(--line);border-radius:18px;padding:30px;background:rgba(16,18,31,.55)}
+  .about h3{font-size:1.15rem;color:#fff;margin-bottom:10px}
+  .about p{color:var(--muted);font-size:.97rem;margin-bottom:10px}
+  footer{margin-top:56px;border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted);font-size:.9rem}
+  footer .row{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:space-between}
+  footer a{color:var(--muted)}
+  footer a:hover{color:#fff}
+  .rights{margin-top:14px;font-size:.84rem;color:#6d7290}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="./">SPITE<span>.</span></a>
+    <nav class="links">
+      <a href="#collection">Collection</a>
+      <a href="#series">The Series</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/sirhCuit/spite-ai-art/blob/main/COLLECTION.md">Full Index</a>
+    </nav>
+    <span class="badge-display">Exhibition &mdash; Not For Sale</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="kicker">An Original AI Art Collection</div>
+    <h1>SPITE</h1>
+    <p class="lede">Futuristic mandalas by <strong>Sirhc / Circuit Research</strong>. Two series, two ends of the spectrum: circuitry and nebula, machine and bloom. This is the gallery. The pieces are on display, and display is all they do here.</p>
+    <div class="rule"></div>
+  </section>
+
+  <div class="shelf-label" id="collection">The Collection &mdash; Series #001</div>
+
+  <section class="grid">
+    <article class="card core">
+      <div class="frame">
+        <img src="core-series-001-2080-watermarked.jpg" alt="Core Series #001: a perfectly circular concentric disc of glowing cyan and violet motherboard circuitry on dark metal, with faint smoke wisps around the rim">
+        <span class="tag">Core Series</span>
+        <span class="tag status">On Display</span>
+      </div>
+      <div class="body">
+        <div class="series">Core Series &mdash; No. 001</div>
+        <h2>The Circuit Disc</h2>
+        <p>A single perfect circle of concentric glowing rings, motherboard architecture in cyan and violet neon on dark metal, faint smoke curling at the rim. Label typeset in icy silver-cyan.</p>
+        <div class="meta">
+          <span><b>Master</b> 3840 &times; 3840 (private)</span>
+          <span><b>Shown</b> Watermarked 2080</span>
+          <span><b>Status</b> Not for sale</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card pastel">
+      <div class="frame">
+        <img src="pastel-series-001-2080-watermarked.jpg" alt="Pastel Series #001: a smooth pastel nebula-bloom mandala in peach, teal and pink with wispy smoke and no hard linework">
+        <span class="tag">Pastel Series</span>
+        <span class="tag status">On Display</span>
+      </div>
+      <div class="body">
+        <div class="series">Pastel Series &mdash; No. 001</div>
+        <h2>Nebula Bloom</h2>
+        <p>The soft end of the collection: a smooth nebula-bloom mandala in peach, teal and pink, all wispy smoke and candy texture, no hard lines anywhere. Label typeset in warm cream.</p>
+        <div class="meta">
+          <span><b>Master</b> 3840 &times; 3840 (private)</span>
+          <span><b>Shown</b> Watermarked 2080</span>
+          <span><b>Status</b> Not for sale</span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <div class="shelf-label" id="series">The Two Series</div>
+
+  <section class="panels">
+    <div class="panel core">
+      <h3>Core Series</h3>
+      <p>Motherboard, circuitry, custom-PC-lighting energy. Neon on dark metal, radial symmetry, engineered precision. Labels in all-caps Kaushan Script with a hollow embossed outline in icy silver-cyan, typeset deterministically, never AI-redrawn.</p>
+    </div>
+    <div class="panel pastel">
+      <h3>Pastel Series</h3>
+      <p>Lighter tones, candy textures, whimsy. Nebula blooms and smoke instead of circuits, the collection&rsquo;s soft counterweight to Core&rsquo;s machinery. Labels in the same hand, in warm cream.</p>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h3>About this gallery</h3>
+    <p>SPITE was named in November 2026, born from the anti-AI &ldquo;theft&rdquo; debates, and launched publicly on Threads as <a href="https://www.threads.com/@circuit_research">@circuit_research</a>. Copyright infringement, plagiarism, and theft are three distinct things; this collection is the standing argument that a human aimed the machine and the work is his.</p>
+    <p>Only watermarked posting versions live here. The clean 3840 &times; 3840 masters stay private, and any future editions will be announced by the artist, nobody else. The full index lives in <a href="https://github.com/sirhCuit/spite-ai-art/blob/main/COLLECTION.md">COLLECTION.md</a>, and the edition research in <a href="https://github.com/sirhCuit/spite-ai-art/blob/main/NFT-ROUTES.md">NFT-ROUTES.md</a>.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>SPITE &mdash; a collection by Sirhc / Circuit Research</span>
+      <span>
+        <a href="https://www.threads.com/@circuit_research">Threads</a> &nbsp;&middot;&nbsp;
+        <a href="https://github.com/sirhCuit/spite-ai-art">Repository</a> &nbsp;&middot;&nbsp;
+        <a href="https://github.com/sirhCuit/circuit-research">Circuit Research</a>
+      </span>
+    </div>
+    <p class="rights">Copyright 2026 Sirhc. All rights reserved. No commercial use, no re-upload, and no minting by anyone other than the artist.</p>
+  </div>
+</footer>
+
+</body>
+</html>
