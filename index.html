@@ -147,9 +147,9 @@
     border:1px solid var(--line);border-radius:18px;overflow:hidden;
     transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
   }
-  .js .card.reveal.glow-on{transform:translateY(-6px) scale(1.012);border-color:rgba(96,84,255,.6);box-shadow:0 26px 44px -20px rgba(5,4,170,.5),0 10px 22px -10px rgba(0,0,0,.65)}
+  .js .card.reveal.glow-on{transform:translateY(-3px) scale(1.005);border-color:rgba(96,84,255,.6);box-shadow:0 16px 30px -16px rgba(5,4,170,.45),0 6px 14px -8px rgba(0,0,0,.55)}
   @media (hover:hover){
-    .js .card.reveal:hover{transform:translateY(-6px) scale(1.012);border-color:rgba(96,84,255,.6);box-shadow:0 26px 44px -20px rgba(5,4,170,.5),0 10px 22px -10px rgba(0,0,0,.65)}
+    .js .card.reveal:hover{transform:translateY(-3px) scale(1.005);border-color:rgba(96,84,255,.6);box-shadow:0 16px 30px -16px rgba(5,4,170,.45),0 6px 14px -8px rgba(0,0,0,.55)}
   }
   .card .frame{position:relative;background:#000;overflow:hidden}
   .card img{display:block;width:100%;height:auto}
@@ -166,16 +166,15 @@
   }
   .tag.status{left:auto;right:14px;color:#8A00C4;border-color:#8A00C4;background:linear-gradient(135deg,rgba(138,0,196,.45),rgba(138,0,196,.10))}
   .card .body{padding:22px 22px 24px}
-  .series{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+  .series{font-family:'Kaushan Script',cursive;font-size:1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-align:center;margin:0 0 8px}
   .core .series{color:var(--cyan)}
   .pastel .series{color:var(--cream)}
-  .card h2{font-family:'Kaushan Script',cursive;font-size:1.75rem;font-weight:400;margin:6px 0 8px;color:#fff}
+  .card h2{font-family:'Kaushan Script',cursive;font-size:1.75rem;font-weight:400;margin:0 0 6px;color:#fff;text-align:center}
   .card p{color:var(--muted);font-size:.97rem}
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
   .meta span b{color:var(--text);font-weight:600}
-  .meta span.status-pill{color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 11px;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-  .meta span.status-pill b{color:#ff4d5e}
+  .meta span.status-pill{color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 11px;font-size:.7rem;font-weight:600;letter-spacing:.1em}
   .meta span.rarity{border:1px solid #0504AA;background:linear-gradient(135deg,rgba(5,4,170,.42),rgba(5,4,170,.08));border-radius:999px;padding:4px 11px;color:#c3cbff}
   .meta span.rarity b{color:#e3e8ff}
   .title-wrap{position:relative}
@@ -261,8 +260,8 @@
         <span class="tag status">LIMITED EDITION</span>
       </div>
       <div class="body">
-        <div class="series">Core Series &mdash; No. 001</div>
         <div class="title-wrap"><h2>&ldquo;Uploaded&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
+        <div class="series">Core Series &mdash; No. 001</div>
         <p>You weren&rsquo;t the first, or the last of our race that&rsquo;ll be uploaded, gone without a trace.</p>
         <div class="meta">
           <span class="status-pill">Not for Sale</span>
@@ -280,8 +279,8 @@
         <span class="tag status">LIMITED EDITION</span>
       </div>
       <div class="body">
-        <div class="series">Pastel Series &mdash; No. 001</div>
         <div class="title-wrap"><h2>&ldquo;Nova Bloom&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
+        <div class="series">Pastel Series &mdash; No. 001</div>
         <p>The moment you saw it, you knew. Cosmic chatter of the rare Nova Bloom was true.</p>
         <div class="meta">
           <span class="status-pill">Not for Sale</span>
