@@ -175,7 +175,7 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
   .meta span b{color:var(--text);font-weight:600}
-  .meta span.status-pill{color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 11px;font-size:.7rem;font-weight:600;letter-spacing:.1em}
+  .meta span.status-pill{margin-left:auto;color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 11px;font-size:.7rem;font-weight:600;letter-spacing:.1em}
   .meta span.rarity{border:1px solid #0504AA;background:linear-gradient(135deg,rgba(5,4,170,.42),rgba(5,4,170,.08));border-radius:999px;padding:4px 11px;color:#c3cbff}
   .meta span.rarity b{color:#e3e8ff}
   .title-wrap{position:relative}
@@ -197,8 +197,7 @@
   .panel p{color:var(--muted);font-size:.97rem}
 
   /* ---------- about / footer ---------- */
-  .about{margin:60px 0 0;border:1px solid var(--line);border-radius:18px;padding:30px;background:rgba(16,18,31,.55)}
-  .about h3{font-size:1.15rem;color:#fff;margin-bottom:10px}
+  .about{margin:0;border:1px solid var(--line);border-radius:18px;padding:30px;background:rgba(16,18,31,.55)}
   .about p{color:var(--muted);font-size:.97rem;margin-bottom:10px}
   footer{margin-top:56px;border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted);font-size:.9rem}
   footer .row{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:space-between}
@@ -265,9 +264,9 @@
         <div class="series">Core Series &mdash; No. 001 <span class="origin-tag">Origin Series</span></div>
         <p>You weren&rsquo;t the first, or the last of our race that&rsquo;ll be uploaded, gone without a trace.</p>
         <div class="meta">
-          <span class="status-pill">Not for Sale</span>
           <span><b>Supply:</b> 50</span>
           <span class="rarity"><b>Rarity:</b> Anomaly</span>
+          <span class="status-pill">Not for Sale</span>
         </div>
         <div class="nft-soon">Minting</div>
       </div>
@@ -284,9 +283,9 @@
         <div class="series">Pastel Series &mdash; No. 001 <span class="origin-tag">Origin Series</span></div>
         <p>The moment you saw it, you knew. Cosmic chatter of the rare Nova Bloom was true.</p>
         <div class="meta">
-          <span class="status-pill">Not for Sale</span>
           <span><b>Supply:</b> 50</span>
           <span class="rarity"><b>Rarity:</b> Anomaly</span>
+          <span class="status-pill">Not for Sale</span>
         </div>
         <div class="nft-soon">Minting</div>
       </div>
@@ -306,8 +305,8 @@
     </div>
   </section>
 
-  <section class="about reveal" id="about">
-    <h3>The Story</h3>
+  <div class="shelf-label reveal" id="about">ORIGIN</div>
+  <section class="about reveal">
     <p>SPITE was named in November 2026, born from the anti-AI &ldquo;theft&rdquo; debates, and launched publicly on Threads as <a href="https://www.threads.com/@circuit_research">@circuit_research</a>. Copyright infringement, plagiarism, and theft are three distinct things; this collection is the standing argument that a human aimed the machine and the work is his.</p>
     <p>Exhibition copies live here, downscaled for the web. The full resolution masters stay private, and any future editions will be announced by the artist, nobody else.</p>
   </section>
