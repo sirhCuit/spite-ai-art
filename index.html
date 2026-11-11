@@ -100,10 +100,18 @@
   }
   .hero p.lede{max-width:640px;margin:0 auto;color:var(--muted);font-size:1.06rem}
   .hero p.lede strong{color:var(--text)}
-  .loadbar{position:relative;width:min(340px,80vw);height:28px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(168,85,247,.6);box-shadow:0 0 14px rgba(168,85,247,.35),inset 0 0 10px rgba(168,85,247,.18)}
+  .loadbar{position:relative;width:min(340px,80vw);height:28px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.28)}
   @property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
-  .loadbar::after{content:"";position:absolute;inset:0;border-radius:10px;padding:2px;background:conic-gradient(from var(--a),transparent 0deg,transparent 255deg,rgba(168,85,247,.25) 290deg,#d8b4fe 335deg,#a855f7 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;filter:drop-shadow(0 0 6px rgba(192,132,252,.9));animation:spin-a 3.6s linear infinite;pointer-events:none}
+  .loadbar::before,.loadbar::after{content:"";position:absolute;inset:0;border-radius:10px;padding:2px;opacity:0;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+  .loadbar::after{background:conic-gradient(from var(--a),transparent 0deg,transparent 255deg,rgba(168,85,247,.25) 290deg,#d8b4fe 335deg,#a855f7 360deg);animation:spin-a 3.6s linear 2.75s infinite,ring-in .6s ease 2.75s both}
+  .loadbar::before{background:conic-gradient(from calc(var(--a) + 180deg),transparent 0deg,transparent 255deg,rgba(168,85,247,.25) 290deg,#d8b4fe 335deg,#a855f7 360deg);animation:spin-a 3.6s linear 2.75s infinite,ring-in .6s ease 2.75s both}
   @keyframes spin-a{to{--a:360deg}}
+  @keyframes ring-in{0%{opacity:0;filter:drop-shadow(0 0 16px rgba(216,180,254,1)) brightness(2)}100%{opacity:1;filter:drop-shadow(0 0 6px rgba(192,132,252,.9)) brightness(1)}}
+  @keyframes ignite{
+    0%{border-color:rgba(148,163,184,.28);box-shadow:0 0 0 rgba(168,85,247,0)}
+    30%{border-color:#e9d5ff;box-shadow:0 0 38px rgba(192,132,252,.95),0 0 70px rgba(168,85,247,.55),inset 0 0 18px rgba(192,132,252,.55)}
+    100%{border-color:rgba(168,85,247,.6);box-shadow:0 0 14px rgba(168,85,247,.35),inset 0 0 10px rgba(168,85,247,.18)}
+  }
   .loadbar-fill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:10px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));background-size:200% 100%;animation:ruleflow 7s linear infinite,loadfill 2.4s ease .35s both}
   @keyframes loadfill{0%{width:0}55%{width:68%}80%{width:86%}100%{width:100%}}
   .loadbar > .loadbar-txt{animation:textfade .9s ease .15s both}
@@ -116,7 +124,8 @@
   @media (prefers-reduced-motion: reduce){
     .loadbar-txt .dots span{opacity:1}
     .loadbar-fill{width:100%;animation:none}
-    .loadbar::after{animation:none}
+    .loadbar{border-color:rgba(168,85,247,.6);box-shadow:0 0 14px rgba(168,85,247,.35),inset 0 0 10px rgba(168,85,247,.18)}
+    .loadbar::before,.loadbar::after{display:none}
     .loadbar > .loadbar-txt{animation:none;opacity:1}
   }
   @keyframes ruleflow{from{background-position:0% 0}to{background-position:200% 0}}
@@ -200,7 +209,7 @@
   .hero .kicker{animation:riseIn .8s cubic-bezier(.19,1,.22,1) both}
   .hero h1{animation:riseIn .9s cubic-bezier(.19,1,.22,1) .08s both,heroGlow 1.6s ease-out .08s both}
   .hero p.lede{animation:riseIn .9s cubic-bezier(.19,1,.22,1) .18s both}
-  .hero .loadbar{animation:riseIn .9s cubic-bezier(.19,1,.22,1) .26s both}
+  .hero .loadbar{animation:riseIn .9s cubic-bezier(.19,1,.22,1) .26s both,ignite .8s ease 2.75s both}
   .js .reveal{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.19,1,.22,1),transform .85s cubic-bezier(.19,1,.22,1);transition-delay:var(--d,0s)}
   .js .reveal.in{opacity:1;transform:translateY(0)}
 
