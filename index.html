@@ -101,13 +101,21 @@
   .hero p.lede{max-width:640px;margin:0 auto;color:var(--muted);font-size:1.06rem}
   .hero p.lede strong{color:var(--text)}
   .loadbar{position:relative;width:min(340px,80vw);height:28px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(120,240,255,.25)}
-  .loadbar-fill{position:absolute;top:0;bottom:0;left:0;width:100%;border-radius:10px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));background-size:200% 100%;animation:ruleflow 7s linear infinite}
+  .loadbar-fill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:10px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));background-size:200% 100%;animation:ruleflow 7s linear infinite,loadfill 2.4s ease .35s both}
+  @keyframes loadfill{0%{width:0}55%{width:68%}80%{width:86%}100%{width:100%}}
+  .loadbar-sweep{position:absolute;top:0;bottom:0;left:0;width:0;overflow:hidden;animation:loadfill 2.4s ease .35s both,loadfade 2.4s ease .35s both}
+  @keyframes loadfade{0%,86%{opacity:1}100%{opacity:0}}
+  .loadbar-sweep .loadbar-txt{left:0;right:auto;width:min(340px,80vw);color:#07080f;text-shadow:none}
   .loadbar-txt{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#f2f5ff;text-shadow:0 1px 6px rgba(0,0,0,.65)}
   .loadbar-txt .dots span{opacity:0;animation:dotcycle 1.6s infinite}
   .loadbar-txt .dots span:nth-child(2){animation-delay:.4s}
   .loadbar-txt .dots span:nth-child(3){animation-delay:.8s}
   @keyframes dotcycle{0%{opacity:0}25%{opacity:1}70%{opacity:1}100%{opacity:0}}
-  @media (prefers-reduced-motion: reduce){ .loadbar-txt .dots span{opacity:1} }
+  @media (prefers-reduced-motion: reduce){
+    .loadbar-txt .dots span{opacity:1}
+    .loadbar-fill{width:100%;animation:none}
+    .loadbar-sweep{display:none}
+  }
   @keyframes ruleflow{from{background-position:0% 0}to{background-position:200% 0}}
   @media (max-width:480px){
     .hero{padding:52px 0 22px}
@@ -221,7 +229,7 @@
     <div class="kicker">An Original AI Art Collection</div>
     <h1>SPITE</h1>
     <p class="lede">Futuristic dreamy mandalas by <strong>sirhC / Circuit Research</strong>. The apex of circuitry &amp; nebulae, and machine &amp; bloom. Art regardless, this is SPITE.</p>
-    <div class="loadbar" aria-hidden="true"><span class="loadbar-fill"></span><span class="loadbar-txt">Designing<span class="dots"><span>.</span><span>.</span><span>.</span></span></span></div>
+    <div class="loadbar" aria-hidden="true"><span class="loadbar-fill"></span><span class="loadbar-txt">Designing<span class="dots"><span>.</span><span>.</span><span>.</span></span></span><span class="loadbar-sweep"><span class="loadbar-txt">Designing<span class="dots"><span>.</span><span>.</span><span>.</span></span></span></span></div>
     <canvas class="fog front" id="fogFront" aria-hidden="true"></canvas>
   </section>
 
