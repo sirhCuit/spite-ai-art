@@ -87,7 +87,8 @@
   .hero > *:not(canvas){position:relative;z-index:1}
   canvas.fog{position:absolute;left:50%;transform:translateX(-50%);top:-6px;width:min(960px,100vw);height:400px;pointer-events:none}
   canvas.fog.back{z-index:0}
-  canvas.fog.front{z-index:2;opacity:.85}
+  canvas.fog.front{z-index:2;opacity:.85;-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 58%,transparent 92%);mask-image:linear-gradient(to bottom,#000 0,#000 58%,transparent 92%)}
+  .hero p.lede,.hero .loadbar{z-index:3}
   @media (max-width:480px){ canvas.fog{height:310px;top:-4px} }
   .hero .kicker{letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;font-size:.74rem;color:var(--muted)}
   .hero h1{
