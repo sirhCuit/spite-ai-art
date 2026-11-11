@@ -112,13 +112,13 @@
   }
   .loadbar-fill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:10px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));background-size:200% 100%;animation:ruleflow 7s linear infinite,loadfill 2.4s ease .35s both}
   @keyframes loadfill{0%{width:0}55%{width:68%}80%{width:86%}100%{width:100%}}
-  .loadbar > .loadbar-txt{animation:textfade .9s ease .15s both}
-  @keyframes textfade{from{opacity:0}to{opacity:1}}
-  .loadbar-txt{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#f2f5ff;text-shadow:0 1px 6px rgba(0,0,0,.65)}
-  .loadbar-txt .dots span{opacity:0;animation:dotcycle 1.6s infinite}
+  .loadbar > .loadbar-txt{animation:textfade .45s ease .1s both}
+  @keyframes textfade{from{opacity:.3}to{opacity:1}}
+  .loadbar-txt{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#ffffff;text-shadow:0 1px 2px rgba(0,0,0,.55),0 0 1px rgba(0,0,0,.85)}
+  .loadbar-txt .dots span{opacity:.45;animation:dotcycle 1.6s infinite}
   .loadbar-txt .dots span:nth-child(2){animation-delay:.4s}
   .loadbar-txt .dots span:nth-child(3){animation-delay:.8s}
-  @keyframes dotcycle{0%{opacity:0}25%{opacity:1}70%{opacity:1}100%{opacity:0}}
+  @keyframes dotcycle{0%{opacity:.45}25%{opacity:1}70%{opacity:1}100%{opacity:.45}}
   @media (prefers-reduced-motion: reduce){
     .loadbar-txt .dots span{opacity:1}
     .loadbar-fill{width:100%;animation:none}
@@ -146,9 +146,7 @@
     border:1px solid var(--line);border-radius:18px;overflow:hidden;
     transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
   }
-  .card:hover{transform:translateY(-5px)}
-  .card.core:hover{border-color:rgba(87,230,255,.55);box-shadow:0 18px 50px -18px rgba(87,230,255,.35)}
-  .card.pastel:hover{border-color:rgba(255,217,160,.55);box-shadow:0 18px 50px -18px rgba(255,158,207,.35)}
+  .card:hover{transform:translateY(-6px) scale(1.012);border-color:rgba(96,84,255,.6);box-shadow:0 26px 44px -20px rgba(5,4,170,.5),0 10px 22px -10px rgba(0,0,0,.65)}
   .card .frame{position:relative;background:#000;overflow:hidden}
   .card img{display:block;width:100%;height:auto;transition:transform 1.2s cubic-bezier(.19,1,.22,1)}
   .card:hover img{transform:scale(1.045)}
@@ -179,7 +177,7 @@
   .meta span.rarity b{color:#e3e8ff}
   .title-wrap{position:relative}
   .title-wrap h2{position:relative;z-index:1}
-  .fog-title{position:absolute;left:-10%;top:-30%;width:120%;height:210%;pointer-events:none;z-index:0}
+  .fog-title{position:absolute;left:-10%;top:-110%;width:120%;height:320%;pointer-events:none;z-index:0}
   .nft-soon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:9px}
   .nft-soon::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;animation:dotpulse 2.2s ease-in-out infinite}
   @keyframes dotpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.45);opacity:.55}}
@@ -280,8 +278,8 @@
       </div>
       <div class="body">
         <div class="series">Pastel Series &mdash; No. 001</div>
-        <div class="title-wrap"><h2>&ldquo;Nebula Bloom&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
-        <p>The soft end of the collection: a smooth nebula-bloom mandala in peach, teal and pink, all wispy smoke and candy texture, no hard lines anywhere. Label typeset in warm cream.</p>
+        <div class="title-wrap"><h2>&ldquo;Nova Bloom&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
+        <p>The moment you saw it, you knew. Cosmic chatter of the rare Nova Bloom was true.</p>
         <div class="meta">
           <span class="status-pill"><b>Status:</b> Not for Sale</span>
           <span><b>Supply:</b> 50</span>
@@ -473,7 +471,7 @@
         if (p.y > baseY) p.vx += (p.x - (glyphBox ? glyphBox.cx : this.w / 2)) * 0.02 * dt * 60 * 0.016;
         p.x += p.vx * dt;
         p.y += p.vy * dt;
-        p.r += p.grow * dt * (0.5 + k);
+        p.r += p.grow * dt * (k < 0.25 ? 0.2 : 0.5 + k);
         p.rot += p.vr * dt;
         /* strongest right at the surface, thinning to nothing at the tips */
         var rampIn = Math.min(p.age / 0.35, 1);
@@ -594,6 +592,7 @@
           if (data[(y * off.width + x) * 4 + 3] > 110) { this.pts.push({ x: x, y: y }); if (y > maxY) maxY = y; }
     }
     this.baseY = this.oy + maxY;
+    this.topY = this.oy + (this.pts.length ? Math.min.apply(null, this.pts.map(function (q) { return q.y; })) : 0);
     this.parts = [];
     for (var i = 0; i < this.count; i++) this.parts.push(this.spawn(true));
   };
@@ -601,11 +600,11 @@
     var src = this.pts.length ? this.pts[(Math.random() * this.pts.length) | 0] : { x: this.w * 0.3, y: this.h * 0.3 };
     return {
       x: this.ox + src.x + (Math.random() - 0.5) * 3, y: this.oy + src.y + (Math.random() - 0.5) * 2,
-      vx: (Math.random() - 0.5) * 2, vy: 1 + Math.random() * 2.5,
+      vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6,
       r: 5 + Math.random() * 7, grow: 3.5 + Math.random() * 4,
       seed: Math.random() * 6.28, curl: 0.5 + Math.random() * 0.8,
       rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.12,
-      age: anywhere ? Math.random() * 5 : 0, life: 3.5 + Math.random() * 2.5,
+      age: anywhere ? Math.random() * 6 : 0, life: 4.5 + Math.random() * 2.5,
       sprite: this.sprites[(Math.random() * this.sprites.length) | 0]
     };
   };
@@ -618,13 +617,16 @@
       p.age += dt;
       if (p.age >= p.life) { this.parts[i] = this.spawn(false); continue; }
       var k = p.age / p.life;
-      p.vy += 6 * dt * (0.35 + k);
-      p.vx += Math.sin(t * p.curl + p.seed) * 7 * dt * (0.4 + k);
-      if (p.y > this.baseY) p.vx += (p.x - this.w / 2) * 0.012;
+      if (k > 0.25) {
+        p.vy -= 7 * dt * (k - 0.25);
+        if (p.vy < -16) p.vy = -16;
+        p.vx += Math.sin(t * p.curl + p.seed) * 2.2 * dt * (0.3 + k);
+        if (p.y < this.topY) p.vx += (p.x - this.w / 2) * 0.004;
+      }
       p.x += p.vx * dt; p.y += p.vy * dt;
       p.r += p.grow * dt * (0.5 + k);
       p.rot += p.vr * dt;
-      var env = Math.min(p.age / 0.3, 1) * Math.pow(1 - k, 1.25);
+      var env = Math.min(p.age / 0.5, 1) * Math.pow(1 - k, 1.1);
       ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
       ctx.globalAlpha = Math.min(1, env * 0.5);
       ctx.drawImage(p.sprite, -p.r, -p.r, p.r * 2, p.r * 2);
