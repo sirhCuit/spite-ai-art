@@ -199,6 +199,12 @@
   /* ---------- about / footer ---------- */
   .about{margin:0;border:1px solid var(--line);border-radius:18px;padding:30px;background:rgba(16,18,31,.55)}
   .about p{color:var(--muted);font-size:.97rem;margin-bottom:10px}
+  .about h3{font-family:'Kaushan Script',cursive;font-size:1.7rem;color:#fff;margin-bottom:8px;text-align:left}
+  .dev-dots span{opacity:.12;animation:devdot 1.5s infinite}
+  .dev-dots span:nth-child(2){animation-delay:.25s}
+  .dev-dots span:nth-child(3){animation-delay:.5s}
+  @keyframes devdot{0%,60%,100%{opacity:.12}30%{opacity:1}}
+  body.rm .dev-dots span{animation:none;opacity:1}
   footer{margin-top:56px;border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted);font-size:.9rem}
   footer .row{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:space-between}
   footer a{color:var(--muted)}
@@ -307,9 +313,8 @@
 
   <div class="shelf-label reveal" id="about">ORIGIN</div>
   <section class="about reveal">
-    <p>SPITE started in 2026, when an Aquarius with a computer decided &ldquo;art&rdquo; was too small a word to leave alone. No paint. No canvas. No permission slip. Just circuits, nebulae, and a human aiming a machine at the inside of his own head until mandalas fell out.</p>
-    <p>Every piece starts as a small argument between the machine brain and the meat brain, and the mandalas are whatever survives. The Core Series runs on motherboard logic, neon on dark metal, a custom PC dreaming in perfect circles. The Pastel Series is the same dream with the lights left on: nebula smoke, candy color, not a hard edge in sight. Two moods, one Aquarius calling the shots.</p>
-    <p>The mandala is the oldest trick in the book, a little universe with a center, and SPITE rebuilds it out of future parts: light, code, and nerve. The collection grows when it wants to. That is Aquarius timing, and nobody here asked permission.</p>
+    <h3>Origin <span class="origin-tag">Origin Series</span></h3>
+    <p>Origin story is under development<span class="dev-dots"><span>.</span><span>.</span><span>.</span></span></p>
   </section>
 
 </main>
