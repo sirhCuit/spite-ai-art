@@ -100,7 +100,7 @@
   }
   .hero p.lede{max-width:640px;margin:0 auto;color:var(--muted);font-size:1.06rem}
   .hero p.lede strong{color:var(--text)}
-  .loadbar{position:relative;width:min(340px,80vw);height:45px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.28)}
+  .loadbar{position:relative;width:min(340px,80vw);height:36px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.28)}
   @property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
   .loadbar::after{content:"";position:absolute;inset:0;border-radius:10px;padding:2px;opacity:0;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none;background:conic-gradient(from var(--a),transparent 0deg,transparent 75deg,rgba(168,85,247,.25) 110deg,#d8b4fe 155deg,#a855f7 180deg,transparent 195deg,transparent 255deg,rgba(168,85,247,.25) 290deg,#d8b4fe 335deg,#a855f7 360deg);animation:spin-a 3.6s linear 2.75s infinite,ring-in .25s ease 2.75s both}
   @keyframes spin-a{to{--a:360deg}}
@@ -163,7 +163,7 @@
     .panel{padding:20px}
     .about{padding:22px}
   }
-  .tag.status{left:auto;right:14px;color:#A93400;border-color:rgba(169,52,0,.6)}
+  .tag.status{left:auto;right:14px;color:#8A00C4;border-color:#8A00C4;background:linear-gradient(135deg,rgba(138,0,196,.45),rgba(138,0,196,.10))}
   .card .body{padding:22px 22px 24px}
   .series{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
   .core .series{color:var(--cyan)}
@@ -183,8 +183,8 @@
   .nft-soon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:9px}
   .nft-soon::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;animation:dotpulse 2.2s ease-in-out infinite}
   @keyframes dotpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.45);opacity:.55}}
-  .core .nft-soon::before{background:#A93400;box-shadow:0 0 9px rgba(169,52,0,.9)}
-  .pastel .nft-soon::before{background:#A93400;box-shadow:0 0 9px rgba(169,52,0,.9)}
+  .core .nft-soon::before{background:#FFD700;box-shadow:0 0 9px rgba(255,215,0,.9)}
+  .pastel .nft-soon::before{background:#FFD700;box-shadow:0 0 9px rgba(255,215,0,.9)}
 
   /* ---------- series panels ---------- */
   .panels{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
@@ -264,7 +264,7 @@
         <div class="title-wrap"><h2>&ldquo;Uploaded&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
         <p>You weren&rsquo;t the first, or the last of our race that&rsquo;ll be uploaded, gone without a trace.</p>
         <div class="meta">
-          <span class="status-pill"><b>Status:</b> Not for Sale</span>
+          <span class="status-pill">Not for Sale</span>
           <span><b>Supply:</b> 50</span>
           <span class="rarity"><b>Rarity:</b> Anomaly</span>
         </div>
@@ -283,7 +283,7 @@
         <div class="title-wrap"><h2>&ldquo;Nova Bloom&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
         <p>The moment you saw it, you knew. Cosmic chatter of the rare Nova Bloom was true.</p>
         <div class="meta">
-          <span class="status-pill"><b>Status:</b> Not for Sale</span>
+          <span class="status-pill">Not for Sale</span>
           <span><b>Supply:</b> 50</span>
           <span class="rarity"><b>Rarity:</b> Anomaly</span>
         </div>
@@ -563,11 +563,11 @@
     this.canvas = canvas; this.title = title;
     this.ctx = canvas.getContext('2d');
     var pastel = !!(canvas.closest && canvas.closest('.card.pastel'));
-    var tintA = pastel ? ['rgba(255,233,222,0.34)', 'rgba(255,190,170,0.18)', 'rgba(255,170,200,0.07)', 'rgba(255,170,200,0)']
-                       : ['rgba(235,250,255,0.36)', 'rgba(185,232,255,0.19)', 'rgba(150,180,255,0.08)', 'rgba(150,180,255,0)'];
-    var tintB = ['rgba(226,246,255,0.32)', 'rgba(190,225,245,0.16)', 'rgba(170,200,240,0.06)', 'rgba(170,200,240,0)'];
+    var tintA = pastel ? ['rgba(255,233,222,0.50)', 'rgba(255,190,170,0.27)', 'rgba(255,170,200,0.11)', 'rgba(255,170,200,0)']
+                       : ['rgba(235,250,255,0.52)', 'rgba(185,232,255,0.28)', 'rgba(150,180,255,0.12)', 'rgba(150,180,255,0)'];
+    var tintB = ['rgba(226,246,255,0.48)', 'rgba(190,225,245,0.24)', 'rgba(170,200,240,0.10)', 'rgba(170,200,240,0)'];
     this.sprites = [makeSprites(tintA), makeSprites(tintB)];
-    this.pts = []; this.parts = []; this.count = 15; this.last = 0; this.w = 0; this.h = 0;
+    this.pts = []; this.parts = []; this.count = 30; this.last = 0; this.w = 0; this.h = 0;
     this.build();
   }
   Wisp.prototype.build = function () {
@@ -633,7 +633,7 @@
       p.rot += p.vr * dt;
       var env = Math.min(p.age / 0.5, 1) * Math.pow(1 - k, 1.1);
       ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-      ctx.globalAlpha = Math.min(1, env * 0.5);
+      ctx.globalAlpha = Math.min(1, env * 0.85);
       ctx.drawImage(p.sprite, -p.r, -p.r, p.r * 2, p.r * 2);
       ctx.restore();
     }
