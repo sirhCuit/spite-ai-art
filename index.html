@@ -211,6 +211,22 @@
   footer a{color:var(--muted)}
   footer a:hover{color:#fff}
   .rights{margin-top:14px;font-size:.84rem;color:#6d7290}
+  .foot-top{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+  .foot-nav{display:flex;gap:22px;flex-wrap:wrap;font-size:.92rem}
+  .foot-nav a{
+    text-decoration:none;font-weight:600;
+    background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));
+    background-size:200% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:ruleflow 7s linear infinite;
+  }
+  .foot-nav a:hover{filter:brightness(1.35)}
+  @media (max-width:900px){
+    .foot-top{align-items:center}
+    .foot-nav{justify-content:center}
+    .rights{text-align:center}
+  }
 
   /* ---------- anchors under the sticky bar ---------- */
   #collection,#series,#about{scroll-margin-top:92px}
@@ -324,14 +340,15 @@
 
 <footer>
   <div class="wrap">
-    <div class="row">
-      <span>SPITE &mdash; a collection by Sirhc / Circuit Research</span>
-      <span>
-        <a href="https://www.threads.com/@circuit_research">Threads</a> &nbsp;&middot;&nbsp;
-        <a href="https://github.com/sirhCuit/circuit-research">Circuit Research</a>
-      </span>
+    <div class="foot-top">
+      <a class="brand" href="./">SPITE</a>
+      <nav class="foot-nav">
+        <a href="https://sirhcuit.github.io/circuit-research/">CONTACT</a>
+        <a href="#collection">EXHIBITION</a>
+        <a href="#series">BROWSE SERIES</a>
+      </nav>
     </div>
-    <p class="rights">Copyright 2026 Sirhc. All rights reserved. No commercial use, no re-upload, and no minting by anyone other than the artist.</p>
+    <p class="rights">Copyright 2026 Circuit Research. All rights reserved. No commercial use, no re-upload, and no minting by anyone other than the artist.</p>
   </div>
 </footer>
 
