@@ -135,7 +135,7 @@
   /* ---------- storefront grid ---------- */
   .shelf-label{
     display:flex;align-items:center;gap:14px;margin:54px 0 20px;
-    font-size:.78rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
+    font-size:1rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
   }
   .shelf-label::after{content:"";flex:1;height:1px;background:var(--line)}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
@@ -163,7 +163,7 @@
     .panel{padding:20px}
     .about{padding:22px}
   }
-  .tag.status{left:auto;right:14px;color:var(--cream);border-color:rgba(255,217,160,.5)}
+  .tag.status{left:auto;right:14px;color:#A93400;border-color:rgba(169,52,0,.6)}
   .card .body{padding:22px 22px 24px}
   .series{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
   .core .series{color:var(--cyan)}
@@ -173,11 +173,18 @@
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px 9px}
   .meta span b{color:var(--text);font-weight:600}
+  .meta span.status-pill{color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 11px;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+  .meta span.status-pill b{color:#ff4d5e}
+  .meta span.rarity{border:1px solid #0504AA;background:linear-gradient(135deg,rgba(5,4,170,.42),rgba(5,4,170,.08));border-radius:999px;padding:4px 11px;color:#c3cbff}
+  .meta span.rarity b{color:#e3e8ff}
+  .title-wrap{position:relative}
+  .title-wrap h2{position:relative;z-index:1}
+  .fog-title{position:absolute;left:-10%;top:-30%;width:120%;height:210%;pointer-events:none;z-index:0}
   .nft-soon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:9px}
   .nft-soon::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;animation:dotpulse 2.2s ease-in-out infinite}
   @keyframes dotpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.45);opacity:.55}}
-  .core .nft-soon::before{background:var(--cyan);box-shadow:0 0 9px var(--cyan)}
-  .pastel .nft-soon::before{background:var(--pink);box-shadow:0 0 9px var(--pink)}
+  .core .nft-soon::before{background:#A93400;box-shadow:0 0 9px rgba(169,52,0,.9)}
+  .pastel .nft-soon::before{background:#A93400;box-shadow:0 0 9px rgba(169,52,0,.9)}
 
   /* ---------- series panels ---------- */
   .panels{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
@@ -243,44 +250,44 @@
     <canvas class="fog front" id="fogFront" aria-hidden="true"></canvas>
   </section>
 
-  <div class="shelf-label reveal" id="collection">DIGITAL EXHIBITION | VARIOUS SERIES</div>
+  <div class="shelf-label reveal" id="collection">ONLINE EXHIBITION</div>
 
   <section class="grid">
     <article class="card core reveal">
       <div class="frame">
         <img src="core-series-001-2080-watermarked.jpg" alt="Core Series #001: a perfectly circular concentric disc of glowing cyan and violet motherboard circuitry on dark metal, with faint smoke wisps around the rim">
-        <span class="tag">Core Series</span>
-        <span class="tag status">On Display</span>
+        <span class="tag">#001</span>
+        <span class="tag status">LIMITED EDITION</span>
       </div>
       <div class="body">
         <div class="series">Core Series &mdash; No. 001</div>
-        <h2>Uploaded</h2>
+        <div class="title-wrap"><h2>&ldquo;Uploaded&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
         <p>You weren&rsquo;t the first, or the last of our race that&rsquo;ll be uploaded, gone without a trace.</p>
         <div class="meta">
-          <span><b>Status:</b> Minting</span>
+          <span class="status-pill"><b>Status:</b> Not for Sale</span>
           <span><b>Supply:</b> 50</span>
-          <span><b>Rarity:</b> Anomaly</span>
+          <span class="rarity"><b>Rarity:</b> Anomaly</span>
         </div>
-        <div class="nft-soon">NFT editions &mdash; coming soon</div>
+        <div class="nft-soon">Minting</div>
       </div>
     </article>
 
     <article class="card pastel reveal" style="--d:.12s">
       <div class="frame">
         <img src="pastel-series-001-2080-watermarked.jpg" alt="Pastel Series #001: a smooth pastel nebula-bloom mandala in peach, teal and pink with wispy smoke and no hard linework">
-        <span class="tag">Pastel Series</span>
-        <span class="tag status">On Display</span>
+        <span class="tag">#001</span>
+        <span class="tag status">LIMITED EDITION</span>
       </div>
       <div class="body">
         <div class="series">Pastel Series &mdash; No. 001</div>
-        <h2>Nebula Bloom</h2>
+        <div class="title-wrap"><h2>&ldquo;Nebula Bloom&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
         <p>The soft end of the collection: a smooth nebula-bloom mandala in peach, teal and pink, all wispy smoke and candy texture, no hard lines anywhere. Label typeset in warm cream.</p>
         <div class="meta">
-          <span><b>Master</b> 3840 &times; 3840 (private)</span>
-          <span><b>Shown</b> Watermarked 2080</span>
-          <span><b>Status</b> Not for sale</span>
+          <span class="status-pill"><b>Status:</b> Not for Sale</span>
+          <span><b>Supply:</b> 50</span>
+          <span class="rarity"><b>Rarity:</b> Anomaly</span>
         </div>
-        <div class="nft-soon">NFT editions &mdash; coming soon</div>
+        <div class="nft-soon">Minting</div>
       </div>
     </article>
   </section>
@@ -523,6 +530,141 @@
     }
     requestAnimationFrame(frame);
   })();
+</script>
+
+<script>
+/* Card title wisps: a quieter echo of the hero dry ice, sampled from each title's own glyphs */
+(function () {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var wraps = Array.prototype.slice.call(document.querySelectorAll('.title-wrap'));
+  if (!wraps.length) return;
+
+  function makeSprites(cols) {
+    var c = document.createElement('canvas'); c.width = c.height = 96;
+    var x = c.getContext('2d');
+    var g = x.createRadialGradient(48, 48, 2, 48, 48, 48);
+    cols.forEach(function (col, i) { g.addColorStop(i / (cols.length - 1), col); });
+    x.fillStyle = g; x.fillRect(0, 0, 96, 96);
+    x.globalCompositeOperation = 'destination-out';
+    for (var i = 0; i < 7; i++) {
+      var bx = 12 + Math.random() * 72, by = 12 + Math.random() * 72, br = 8 + Math.random() * 18;
+      var bg = x.createRadialGradient(bx, by, 0, bx, by, br);
+      bg.addColorStop(0, 'rgba(0,0,0,' + (0.10 + Math.random() * 0.16) + ')');
+      bg.addColorStop(1, 'rgba(0,0,0,0)');
+      x.fillStyle = bg; x.beginPath(); x.arc(bx, by, br, 0, 7); x.fill();
+    }
+    return c;
+  }
+
+  function Wisp(canvas, title) {
+    this.canvas = canvas; this.title = title;
+    this.ctx = canvas.getContext('2d');
+    var pastel = !!(canvas.closest && canvas.closest('.card.pastel'));
+    var tintA = pastel ? ['rgba(255,233,222,0.34)', 'rgba(255,190,170,0.18)', 'rgba(255,170,200,0.07)', 'rgba(255,170,200,0)']
+                       : ['rgba(235,250,255,0.36)', 'rgba(185,232,255,0.19)', 'rgba(150,180,255,0.08)', 'rgba(150,180,255,0)'];
+    var tintB = ['rgba(226,246,255,0.32)', 'rgba(190,225,245,0.16)', 'rgba(170,200,240,0.06)', 'rgba(170,200,240,0)'];
+    this.sprites = [makeSprites(tintA), makeSprites(tintB)];
+    this.pts = []; this.parts = []; this.count = 15; this.last = 0; this.w = 0; this.h = 0;
+    this.build();
+  }
+  Wisp.prototype.build = function () {
+    var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    var cr = this.canvas.getBoundingClientRect();
+    if (cr.width < 10) { this.pts = []; return; }
+    this.w = cr.width; this.h = cr.height;
+    this.canvas.width = Math.round(cr.width * DPR);
+    this.canvas.height = Math.round(cr.height * DPR);
+    this.ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    var tr = this.title.getBoundingClientRect();
+    this.ox = tr.left - cr.left; this.oy = tr.top - cr.top;
+    var off = document.createElement('canvas');
+    off.width = Math.max(2, Math.ceil(tr.width)); off.height = Math.max(2, Math.ceil(tr.height));
+    var o = off.getContext('2d', { willReadFrequently: true });
+    var cs = getComputedStyle(this.title);
+    o.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+    o.fillStyle = '#fff'; o.textBaseline = 'middle';
+    o.fillText(this.title.textContent, 0, off.height / 2 + 1);
+    var data = null;
+    try { data = o.getImageData(0, 0, off.width, off.height).data; } catch (e) { data = null; }
+    this.pts = [];
+    var maxY = 0;
+    if (data) {
+      for (var y = 0; y < off.height; y += 3)
+        for (var x = 0; x < off.width; x += 3)
+          if (data[(y * off.width + x) * 4 + 3] > 110) { this.pts.push({ x: x, y: y }); if (y > maxY) maxY = y; }
+    }
+    this.baseY = this.oy + maxY;
+    this.parts = [];
+    for (var i = 0; i < this.count; i++) this.parts.push(this.spawn(true));
+  };
+  Wisp.prototype.spawn = function (anywhere) {
+    var src = this.pts.length ? this.pts[(Math.random() * this.pts.length) | 0] : { x: this.w * 0.3, y: this.h * 0.3 };
+    return {
+      x: this.ox + src.x + (Math.random() - 0.5) * 3, y: this.oy + src.y + (Math.random() - 0.5) * 2,
+      vx: (Math.random() - 0.5) * 2, vy: 1 + Math.random() * 2.5,
+      r: 5 + Math.random() * 7, grow: 3.5 + Math.random() * 4,
+      seed: Math.random() * 6.28, curl: 0.5 + Math.random() * 0.8,
+      rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.12,
+      age: anywhere ? Math.random() * 5 : 0, life: 3.5 + Math.random() * 2.5,
+      sprite: this.sprites[(Math.random() * this.sprites.length) | 0]
+    };
+  };
+  Wisp.prototype.step = function (dt, t) {
+    var ctx = this.ctx;
+    ctx.clearRect(0, 0, this.w, this.h);
+    ctx.globalCompositeOperation = 'lighter';
+    for (var i = 0; i < this.parts.length; i++) {
+      var p = this.parts[i];
+      p.age += dt;
+      if (p.age >= p.life) { this.parts[i] = this.spawn(false); continue; }
+      var k = p.age / p.life;
+      p.vy += 6 * dt * (0.35 + k);
+      p.vx += Math.sin(t * p.curl + p.seed) * 7 * dt * (0.4 + k);
+      if (p.y > this.baseY) p.vx += (p.x - this.w / 2) * 0.012;
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      p.r += p.grow * dt * (0.5 + k);
+      p.rot += p.vr * dt;
+      var env = Math.min(p.age / 0.3, 1) * Math.pow(1 - k, 1.25);
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.globalAlpha = Math.min(1, env * 0.5);
+      ctx.drawImage(p.sprite, -p.r, -p.r, p.r * 2, p.r * 2);
+      ctx.restore();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  };
+
+  var wisps = wraps.map(function (w) {
+    return new Wisp(w.querySelector('.fog-title'), w.querySelector('h2'));
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { wisps.forEach(function (w) { w.build(); }); });
+  }
+  var vis = wisps.map(function () { return false; });
+  if ('IntersectionObserver' in window) {
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        wisps.forEach(function (w, i) { if (w.canvas === e.target) vis[i] = e.isIntersecting; });
+      });
+    }, { rootMargin: '80px' });
+    wisps.forEach(function (w) { io2.observe(w.canvas); });
+  } else { vis = wisps.map(function () { return true; }); }
+  var rT;
+  window.addEventListener('resize', function () {
+    clearTimeout(rT);
+    rT = setTimeout(function () { wisps.forEach(function (w) { w.build(); }); }, 180);
+  });
+  function frame(ts) {
+    requestAnimationFrame(frame);
+    if (document.hidden) return;
+    var t = ts / 1000;
+    wisps.forEach(function (w, i) {
+      if (!vis[i] || !w.pts.length) { w.last = t; return; }
+      var dt = Math.min(t - (w.last || t), 0.05); w.last = t;
+      w.step(Math.max(dt, 0.001), t);
+    });
+  }
+  requestAnimationFrame(frame);
+})();
 </script>
 
 </body>
