@@ -166,8 +166,8 @@
   }
   .tag.status{left:auto;right:14px;color:#8A00C4;border-color:#8A00C4;background:linear-gradient(135deg,rgba(138,0,196,.45),rgba(138,0,196,.10))}
   .card .body{padding:22px 22px 24px}
-  .series{font-family:'Kaushan Script',cursive;font-size:1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-align:center;margin:0 0 8px}
-  .origin-tag{display:inline-block;margin-left:10px;vertical-align:middle;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px 5px calc(11px + .14em);border-radius:999px;border:1px solid #FF69B4;color:#FF69B4;background:linear-gradient(135deg,rgba(255,105,180,.45),rgba(255,105,180,.10))}
+  .series{font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;text-align:center;margin:0 0 8px}
+  .origin-tag{display:inline-block;margin-left:12px;vertical-align:middle;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px 5px calc(11px + .14em);border-radius:999px;border:1px solid #FF69B4;color:#FF69B4;background:linear-gradient(135deg,rgba(255,105,180,.45),rgba(255,105,180,.10))}
   .core .series{color:var(--cyan)}
   .pastel .series{color:var(--cream)}
   .card h2{font-family:'Kaushan Script',cursive;font-size:1.75rem;font-weight:400;margin:0 0 6px;color:#fff;text-align:center}
@@ -261,7 +261,7 @@
       </div>
       <div class="body">
         <div class="title-wrap"><h2>&ldquo;Uploaded&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
-        <div class="series">Core Series &mdash; No. 001 <span class="origin-tag">Origin Series</span></div>
+        <div class="series">Core Series &mdash; No. 001</div>
         <p>You weren&rsquo;t the first, or the last of our race that&rsquo;ll be uploaded, gone without a trace.</p>
         <div class="meta">
           <span><b>Supply:</b> 50</span>
@@ -280,7 +280,7 @@
       </div>
       <div class="body">
         <div class="title-wrap"><h2>&ldquo;Nova Bloom&rdquo;</h2><canvas class="fog-title" aria-hidden="true"></canvas></div>
-        <div class="series">Pastel Series &mdash; No. 001 <span class="origin-tag">Origin Series</span></div>
+        <div class="series">Pastel Series &mdash; No. 001</div>
         <p>The moment you saw it, you knew. Cosmic chatter of the rare Nova Bloom was true.</p>
         <div class="meta">
           <span><b>Supply:</b> 50</span>
@@ -296,11 +296,11 @@
 
   <section class="panels">
     <div class="panel core reveal">
-      <h3>Core Series</h3>
+      <h3>Core Series <span class="origin-tag">Origin Series</span></h3>
       <p>Motherboard, circuitry, custom-PC-lighting energy. Neon on dark metal, radial symmetry, engineered precision. Labels in all-caps Kaushan Script with a hollow embossed outline in icy silver-cyan, typeset deterministically, never AI-redrawn.</p>
     </div>
     <div class="panel pastel reveal" style="--d:.12s">
-      <h3>Pastel Series</h3>
+      <h3>Pastel Series <span class="origin-tag">Origin Series</span></h3>
       <p>Lighter tones, candy textures, whimsy. Nebula blooms and smoke instead of circuits, the collection&rsquo;s soft counterweight to Core&rsquo;s machinery. Labels in the same hand, in warm cream.</p>
     </div>
   </section>
@@ -586,7 +586,10 @@
     var cs = getComputedStyle(this.title);
     o.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
     o.fillStyle = '#fff'; o.textBaseline = 'middle';
-    o.fillText(this.title.textContent, 0, off.height / 2 + 1);
+    var align = cs.textAlign;
+    if (align === 'center') { o.textAlign = 'center'; o.fillText(this.title.textContent, off.width / 2, off.height / 2 + 1); }
+    else if (align === 'right' || align === 'end') { o.textAlign = 'right'; o.fillText(this.title.textContent, off.width, off.height / 2 + 1); }
+    else { o.fillText(this.title.textContent, 0, off.height / 2 + 1); }
     var data = null;
     try { data = o.getImageData(0, 0, off.width, off.height).data; } catch (e) { data = null; }
     this.pts = [];
