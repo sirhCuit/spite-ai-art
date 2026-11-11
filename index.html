@@ -100,7 +100,7 @@
   }
   .hero p.lede{max-width:640px;margin:0 auto;color:var(--muted);font-size:1.06rem}
   .hero p.lede strong{color:var(--text)}
-  .loadbar{position:relative;width:min(340px,80vw);height:28px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.28)}
+  .loadbar{position:relative;width:min(340px,80vw);height:45px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.28)}
   @property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
   .loadbar::after{content:"";position:absolute;inset:0;border-radius:10px;padding:2px;opacity:0;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none;background:conic-gradient(from var(--a),transparent 0deg,transparent 75deg,rgba(168,85,247,.25) 110deg,#d8b4fe 155deg,#a855f7 180deg,transparent 195deg,transparent 255deg,rgba(168,85,247,.25) 290deg,#d8b4fe 335deg,#a855f7 360deg);animation:spin-a 3.6s linear 2.75s infinite,ring-in .25s ease 2.75s both}
   @keyframes spin-a{to{--a:360deg}}
@@ -146,10 +146,12 @@
     border:1px solid var(--line);border-radius:18px;overflow:hidden;
     transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
   }
-  .card:hover{transform:translateY(-6px) scale(1.012);border-color:rgba(96,84,255,.6);box-shadow:0 26px 44px -20px rgba(5,4,170,.5),0 10px 22px -10px rgba(0,0,0,.65)}
+  .js .card.reveal.glow-on{transform:translateY(-6px) scale(1.012);border-color:rgba(96,84,255,.6);box-shadow:0 26px 44px -20px rgba(5,4,170,.5),0 10px 22px -10px rgba(0,0,0,.65)}
+  @media (hover:hover){
+    .js .card.reveal:hover{transform:translateY(-6px) scale(1.012);border-color:rgba(96,84,255,.6);box-shadow:0 26px 44px -20px rgba(5,4,170,.5),0 10px 22px -10px rgba(0,0,0,.65)}
+  }
   .card .frame{position:relative;background:#000;overflow:hidden}
-  .card img{display:block;width:100%;height:auto;transition:transform 1.2s cubic-bezier(.19,1,.22,1)}
-  .card:hover img{transform:scale(1.045)}
+  .card img{display:block;width:100%;height:auto}
   .tag{
     position:absolute;top:14px;left:14px;
     font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
@@ -169,7 +171,7 @@
   .card h2{font-size:1.5rem;font-weight:800;margin:6px 0 8px;color:#fff}
   .card p{color:var(--muted);font-size:.97rem}
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px 9px}
+  .meta span{font-size:.76rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
   .meta span b{color:var(--text);font-weight:600}
   .meta span.status-pill{color:#ff4d5e;border:1px solid rgba(255,77,94,.55);background:rgba(200,10,40,.10);border-radius:999px;padding:5px 11px;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
   .meta span.status-pill b{color:#ff4d5e}
@@ -233,7 +235,7 @@
       <a href="#series">Series Index</a>
       <a href="#about">Story</a>
     </nav>
-    <span class="badge-display">NFS! NFT Mints Unlock January 2027</span>
+    <span class="badge-display">NFT Mints Unlock January 2027</span>
   </div>
 </header>
 
@@ -340,6 +342,9 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
     els.forEach(function (el) { io.observe(el); });
+    document.querySelectorAll('.card').forEach(function (card) {
+      card.addEventListener('click', function () { card.classList.toggle('glow-on'); });
+    });
   })();
 </script>
 
