@@ -103,10 +103,8 @@
   .loadbar{position:relative;width:min(340px,80vw);height:28px;margin:28px auto 0;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(120,240,255,.25)}
   .loadbar-fill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:10px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink),var(--cyan));background-size:200% 100%;animation:ruleflow 7s linear infinite,loadfill 2.4s ease .35s both}
   @keyframes loadfill{0%{width:0}55%{width:68%}80%{width:86%}100%{width:100%}}
-  .loadbar-sweep{position:absolute;top:0;bottom:0;left:0;width:0;overflow:hidden;animation:loadfill 2.4s ease .35s both,loadfade 2.4s ease .35s both}
-  @keyframes loadfade{0%,86%{opacity:1}100%{opacity:0}}
-  .loadbar-sweep .loadbar-txt{left:0;right:auto;width:min(340px,80vw);color:#07080f;text-shadow:none}
-  .loadbar > .loadbar-txt{animation:textpop 1s cubic-bezier(.22,1.4,.36,1) 2.75s both}
+  .loadbar > .loadbar-txt{animation:textfade .9s ease .15s both,textpop 1s cubic-bezier(.22,1.4,.36,1) 2.75s both}
+  @keyframes textfade{from{opacity:0}to{opacity:1}}
   @keyframes textpop{
     0%{transform:scale(1) rotateX(0deg);text-shadow:0 1px 6px rgba(0,0,0,.65)}
     32%{transform:scale(1.34) rotateX(7deg);text-shadow:1px 1px 0 rgba(25,227,255,.55),2px 2px 0 rgba(139,107,255,.5),3px 3px 0 rgba(255,93,168,.45),5px 5px 0 rgba(0,0,0,.35),0 12px 26px rgba(0,0,0,.55)}
@@ -122,8 +120,7 @@
   @media (prefers-reduced-motion: reduce){
     .loadbar-txt .dots span{opacity:1}
     .loadbar-fill{width:100%;animation:none}
-    .loadbar-sweep{display:none}
-    .loadbar > .loadbar-txt{animation:none}
+    .loadbar > .loadbar-txt{animation:none;opacity:1}
   }
   @keyframes ruleflow{from{background-position:0% 0}to{background-position:200% 0}}
   @media (max-width:480px){
@@ -238,11 +235,11 @@
     <div class="kicker">An Original AI Art Collection</div>
     <h1>SPITE</h1>
     <p class="lede">Futuristic dreamy mandalas by <strong>sirhC / Circuit Research</strong>. The apex of circuitry &amp; nebulae, and machine &amp; bloom. Art regardless, this is SPITE.</p>
-    <div class="loadbar" aria-hidden="true"><span class="loadbar-fill"></span><span class="loadbar-txt">Designing<span class="dots"><span>.</span><span>.</span><span>.</span></span></span><span class="loadbar-sweep"><span class="loadbar-txt">Designing<span class="dots"><span>.</span><span>.</span><span>.</span></span></span></span></div>
+    <div class="loadbar" aria-hidden="true"><span class="loadbar-fill"></span><span class="loadbar-txt">Designing<span class="dots"><span>.</span><span>.</span><span>.</span></span></span></div>
     <canvas class="fog front" id="fogFront" aria-hidden="true"></canvas>
   </section>
 
-  <div class="shelf-label reveal" id="collection">Fresh Drops &mdash; Series #001</div>
+  <div class="shelf-label reveal" id="collection">DIGITAL EXHIBITION | VARIOUS SERIES</div>
 
   <section class="grid">
     <article class="card core reveal">
