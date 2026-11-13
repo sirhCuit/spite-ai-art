@@ -213,14 +213,19 @@
   html.gate-locked body>*:not(#gate){display:none!important}
   #gate{position:fixed;inset:0;z-index:9999;background:radial-gradient(900px 500px at 50% -10%, rgba(160,107,255,.14), transparent 60%),var(--bg);align-items:center;justify-content:center;padding:24px}
   .gate-box{text-align:center;max-width:340px;width:100%}
-  .gate-box .brand{font-size:2.6rem}
-  .gate-msg{color:var(--muted);margin:14px 0 20px;font-size:.95rem}
+  .gate-box .brand{font-size:2.6rem;line-height:1}
+  .gate-msg{color:var(--muted);margin:3px 0 20px;font-size:.95rem}
   .gate-form{display:flex;gap:10px}
   .gate-form input{flex:1;min-width:0;background:rgba(16,18,31,.8);border:1px solid var(--line);border-radius:999px;padding:11px 18px;color:#fff;font-size:1rem;outline:none}
+  .gate-form input{animation:gateblink 1s ease-in-out infinite}
+  @keyframes gateblink{0%,100%{border-color:var(--line);box-shadow:0 0 0 0 rgba(160,107,255,0)}50%{border-color:var(--violet);box-shadow:0 0 0 3px rgba(160,107,255,.18)}}
   .gate-form input:focus{border-color:var(--violet)}
+  body.rm .gate-form input{animation:none;border-color:var(--violet)}
   .gate-form button{border:1px solid rgba(160,107,255,.55);background:linear-gradient(135deg,rgba(160,107,255,.35),rgba(160,107,255,.08));color:#fff;border-radius:999px;padding:11px 20px;font-weight:600;cursor:pointer}
   .gate-err{color:#ff4d5e;font-size:.85rem;margin-top:12px;min-height:1.2em}
   .gate-box.shake{animation:gateshake .4s}
+  #logoutBtn{position:fixed;top:10px;left:10px;z-index:9500;background:rgba(7,8,13,.78);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 11px;font-size:.68rem;font-weight:600;letter-spacing:.08em;cursor:pointer;backdrop-filter:blur(4px)}
+  #logoutBtn:hover{color:#fff;border-color:var(--violet)}
   @keyframes gateshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
   footer{margin-top:56px;border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted);font-size:.9rem}
   footer .row{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:space-between}
@@ -271,7 +276,7 @@
 <div id="gate">
   <div class="gate-box" id="gateBox">
     <div class="brand">SPITE</div>
-    <p class="gate-msg">This gallery is private.</p>
+    <p class="gate-msg">Speak friend, and enter, motherfucker.</p>
     <form class="gate-form" id="gateForm">
       <input type="password" id="gateInput" placeholder="Password" autocomplete="off" aria-label="Password">
       <button type="submit">Enter</button>
@@ -279,6 +284,7 @@
     <p class="gate-err" id="gateErr"></p>
   </div>
 </div>
+<button id="logoutBtn" type="button">LOGOUT</button>
 
 <header class="bar">
   <div class="wrap bar-in">
@@ -747,6 +753,11 @@
       return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
     });
   }
+  var logout = document.getElementById('logoutBtn');
+  if (logout) logout.addEventListener('click', function () {
+    try { localStorage.removeItem('spite_gate'); } catch (e) {}
+    location.reload();
+  });
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
     sha256(input.value).then(function (h) {
