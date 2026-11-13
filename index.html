@@ -206,6 +206,22 @@
   .dev-dots span:nth-child(3){animation-delay:.5s}
   @keyframes devdot{0%,60%,100%{opacity:.12}30%{opacity:1}}
   body.rm .dev-dots span{animation:none;opacity:1}
+  /* ---------- password gate ---------- */
+  #gate{display:none}
+  html.gate-locked #gate{display:flex}
+  html.gate-locked body{overflow:hidden}
+  html.gate-locked body>*:not(#gate){display:none!important}
+  #gate{position:fixed;inset:0;z-index:9999;background:radial-gradient(900px 500px at 50% -10%, rgba(160,107,255,.14), transparent 60%),var(--bg);align-items:center;justify-content:center;padding:24px}
+  .gate-box{text-align:center;max-width:340px;width:100%}
+  .gate-box .brand{font-size:2.6rem}
+  .gate-msg{color:var(--muted);margin:14px 0 20px;font-size:.95rem}
+  .gate-form{display:flex;gap:10px}
+  .gate-form input{flex:1;min-width:0;background:rgba(16,18,31,.8);border:1px solid var(--line);border-radius:999px;padding:11px 18px;color:#fff;font-size:1rem;outline:none}
+  .gate-form input:focus{border-color:var(--violet)}
+  .gate-form button{border:1px solid rgba(160,107,255,.55);background:linear-gradient(135deg,rgba(160,107,255,.35),rgba(160,107,255,.08));color:#fff;border-radius:999px;padding:11px 20px;font-weight:600;cursor:pointer}
+  .gate-err{color:#ff4d5e;font-size:.85rem;margin-top:12px;min-height:1.2em}
+  .gate-box.shake{animation:gateshake .4s}
+  @keyframes gateshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
   footer{margin-top:56px;border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted);font-size:.9rem}
   footer .row{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:space-between}
   footer a{color:var(--muted)}
@@ -247,8 +263,22 @@
     .js .reveal{opacity:1;transform:none}
   }
 </style>
+<script>
+  try { if (localStorage.getItem('spite_gate') !== '2b2064f9fc99533beb51abff3f905cdaf5063bcdcdbbc049c984167576a40b34') document.documentElement.classList.add('gate-locked'); } catch (e) { document.documentElement.classList.add('gate-locked'); }
+</script>
 </head>
 <body>
+<div id="gate">
+  <div class="gate-box" id="gateBox">
+    <div class="brand">SPITE</div>
+    <p class="gate-msg">This gallery is private.</p>
+    <form class="gate-form" id="gateForm">
+      <input type="password" id="gateInput" placeholder="Password" autocomplete="off" aria-label="Password">
+      <button type="submit">Enter</button>
+    </form>
+    <p class="gate-err" id="gateErr"></p>
+  </div>
+</div>
 
 <header class="bar">
   <div class="wrap bar-in">
@@ -703,5 +733,36 @@
 })();
 </script>
 
+<script>
+(function () {
+  var HASH = '2b2064f9fc99533beb51abff3f905cdaf5063bcdcdbbc049c984167576a40b34';
+  var form = document.getElementById('gateForm');
+  if (!form) return;
+  var input = document.getElementById('gateInput');
+  var err = document.getElementById('gateErr');
+  var box = document.getElementById('gateBox');
+  if (document.documentElement.classList.contains('gate-locked') && input) input.focus();
+  function sha256(str) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+    });
+  }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    sha256(input.value).then(function (h) {
+      if (h === HASH) {
+        try { localStorage.setItem('spite_gate', HASH); } catch (e) {}
+        document.documentElement.classList.remove('gate-locked');
+        err.textContent = '';
+      } else {
+        err.textContent = 'Wrong password.';
+        input.value = '';
+        box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+        input.focus();
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
